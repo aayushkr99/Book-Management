@@ -20,7 +20,7 @@ let createUser = async function (req, res) {
       return res.status(400).send({ status: false, msg: "title is required" })
     }
 
-    if (["Mr", "Mrs", "Miss", "Mast"].indexOf(title) == -1) { return res.status(400).send({ status: false, message: "title should be Mr,Miss,Mrs" }) }
+    if (["Mr", "Mrs", "Miss"].indexOf(title) == -1) { return res.status(400).send({ status: false, message: "title should be Mr,Miss,Mrs" }) }
 
 
     if (!validation.isValid(name)) {
@@ -100,7 +100,7 @@ const userLogIn = async function (req, res) {
     res.status(404).send({ status: false, msg: 'Invalid Credential' });
   }
   else {  
-    let token = jwt.sign({ userId: checkData._id }, "function1Up", { expiresIn: '1000s' });
+    let token = jwt.sign({ userId: checkData._id }, "function1Up", { expiresIn: '10000s' });
     res.setHeader("x-api-key", token);
     res.status(200).send({status: true, data: "logged in successfully", token:  token })
   }

@@ -18,10 +18,6 @@ const isValidNumber=  function(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
   }
 
-// const isValidNumber = function(number){
-//     if(typeof number == Number)  return true
-//     return false
-// }
 
 const isValidISBN= function(ISBN){
     let pattern1 = /^[\d*\-]{10}|[\d*\-]{13}$/                                                                          // ISBN validation

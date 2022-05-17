@@ -17,9 +17,9 @@ router.get("/books", Middleware.authentication, BookController.getBooks)
 
 router.get("/books/:bookId", Middleware.authentication, BookController.getBookById)
 
-router.put("/books/:bookId",  BookController.updateBooks)
+router.put("/books/:bookId", Middleware.authentication,Middleware.authorization,  BookController.updateBooks)
 
-router.delete("/books/:bookId",  BookController.deleteBooksbyId)
+router.delete("/books/:bookId", Middleware.authentication,Middleware.authorization, BookController.deleteBooksbyId)
 
 router.post("/books/:bookId/review", ReivewController.createReview)
 
