@@ -272,19 +272,19 @@ const updateBooks = async function (req, res) {
 const deleteBooksbyId = async function (req, res) {
     try {
         const bookId = req.params.bookId
-        console.log(bookId)
+        // console.log(bookId)
         if (!bookId) return res.status(400).send({ status: false, msg: "BookId should be present in params" })
         if (!validation.isValidObjectId(bookId)) {
-            return res.status(404).send({
+            return res.status(400).send({
                 status: false,
                 message: "you have entered a invalid book id or book is deleted  ",
             });
         }
-        let check = await booksModel.findOne({ _id: bookId, isDeleted: true })
+        // let check = await booksModel.findOne({ _id: bookId, isDeleted: true })
 
-        if (check) return res.status(404).send({ status: false, msg: "Already deleted" })
+        // if (check) return res.status(404).send({ status: false, msg: "Already deleted" })
 
-        let deleteBlog = await booksModel.findOneAndUpdate({ _id: bookId, isDeleted: false }, { $set: { isDeleted: true, deletedAt: new Date() } }, { new: true, upsert: true }) // we can change new Date() to moment().format()
+        let deleteBlog = await booksModel.findOneAndUpdate({ _id: bookId, isDeleted: false }, { $set: { isDeleted: true, deletedAt: new Date() } }, { new: true }) // we can change new Date() to moment().format()
         console.log(deleteBlog)
         if (!deleteBlog) return res.status(404).send({ status: false, msg: "no such book exist" })
         res.status(200).send({ status: true, msg: "book is deleted successfully" })

@@ -15,6 +15,12 @@ const validation = require("../validation/validation.js")
 const createReview = async function (req, res) {
     try {
         let bookId = req.params.bookId
+        if (!validation.isValidObjectId(bookId)) {
+            return res.status(400).send({
+                status: false,
+                msg: "not a valid bookId"
+            })
+        }
         let check = await booksModel.findOne({ _id: bookId, isDeleted: false })
         if (!check) {
             return res.status(404).send({ status: false, message: "No book found" })
@@ -95,6 +101,7 @@ const updateReview = async function (req, res) {
         if (!validation.isValidRequestBody(data)) {
             return res.status(400).send({ status: false, message: "please provide  details" })
         }
+        
         if (!validation.isValid(data.review)) {
             return res.status(400).send({ status: false, message: "review is not Valid" })
         }

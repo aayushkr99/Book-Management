@@ -39,7 +39,7 @@ const authentication = (req, res, next) => {
       const isvalidId = await booksModel.findOne({_id:bookId,isDeleted:false});
       if (!isvalidId) {
         return res
-          .status(401)
+          .status(400)
           .send({ status: false, data: "Please enter a valid bookId" });
       }
       // console.log(isvalidId);
